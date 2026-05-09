@@ -6,14 +6,20 @@
   <title>Verjaardags Voucher Boek</title>
   <style>
     :root {
-      --bg: oklch(97% 0.012 80); 
-      --surface: oklch(99% 0.005 80);
-      --fg: oklch(20% 0.02 60);
-      --muted: oklch(48% 0.015 60);
-      --border: oklch(89% 0.012 80);
-      --accent: oklch(58% 0.16 35);
-      --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
-      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      /* Art Nouveau palette — organic, curvaceous, nature-inspired */
+      --bg: oklch(96% 0.02 120);
+      --surface: oklch(98% 0.01 110);
+      --fg: oklch(25% 0.03 140);
+      --muted: oklch(52% 0.04 130);
+      --border: oklch(78% 0.03 120);
+      --accent: oklch(48% 0.15 165);
+      --accent-light: oklch(72% 0.12 160);
+      --gold: oklch(65% 0.12 85);
+      --sage: oklch(68% 0.08 145);
+      --cream: oklch(94% 0.015 100);
+
+      --font-display: 'Baskerville', 'Garamond', 'Palatino', Georgia, serif;
+      --font-body: 'Optima', 'Gill Sans', -apple-system, sans-serif;
     }
 
     * {
@@ -23,21 +29,25 @@
     }
 
     body {
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 20% 80%, var(--accent-light) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, var(--gold) 0%, transparent 50%),
+        linear-gradient(135deg, var(--bg) 0%, var(--cream) 100%);
       font-family: var(--font-body);
       color: var(--fg);
       line-height: 1.6;
       padding: 20px;
+      min-height: 100vh;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
     .page {
       display: none;
-      animation: fadeIn 0.3s ease-in;
+      animation: fadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .page.active {
@@ -45,173 +55,376 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
     }
 
-    /* Cover page */
+    /* Art Nouveau organic border */
+    .nouveau-border {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border: 3px solid var(--accent);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 0% 0%, var(--gold) 0%, transparent 30%),
+        radial-gradient(circle at 100% 100%, var(--accent-light) 0%, transparent 30%);
+      opacity: 0.15;
+    }
+
+    /* Cover page — Art Nouveau poster style */
     .cover {
-      background: var(--surface);
-      border: 3px solid var(--fg);
-      border-radius: 8px;
-      padding: 60px 40px;
+      background:
+        radial-gradient(ellipse at top, var(--surface) 0%, var(--cream) 100%);
+      border: 5px solid var(--accent);
+      border-radius: 30px;
+      padding: 80px 50px;
       text-align: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-      min-height: 500px;
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.15),
+        inset 0 2px 0 rgba(255,255,255,0.9),
+        inset 0 0 60px rgba(0,0,0,0.03);
+      min-height: 600px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Whiplash curves — signature Art Nouveau */
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      right: -50px;
+      height: 200px;
+      background:
+        radial-gradient(ellipse at 30% 50%, var(--accent) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 50%, var(--gold) 0%, transparent 50%);
+      opacity: 0.08;
+      border-radius: 50%;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      right: -50px;
+      height: 200px;
+      background:
+        radial-gradient(ellipse at 40% 50%, var(--sage) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 50%, var(--accent-light) 0%, transparent 50%);
+      opacity: 0.08;
+      border-radius: 50%;
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 1;
     }
 
     .cover h1 {
       font-family: var(--font-display);
-      font-size: 52px;
-      font-weight: 500;
-      line-height: 1.2;
-      margin-bottom: 20px;
-      color: var(--fg);
-    }
-
-    .cover .subtitle {
-      font-size: 24px;
-      font-family: var(--font-display);
-      color: var(--muted);
-      margin-bottom: 40px;
-    }
-
-    .cover .from {
-      font-size: 17px;
-      color: var(--muted);
-      margin-top: 60px;
+      font-size: 68px;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: var(--accent);
+      text-shadow:
+        2px 2px 0 rgba(255,255,255,0.9),
+        -1px -1px 0 rgba(0,0,0,0.05);
+      letter-spacing: 0.05em;
       font-style: italic;
     }
 
+    .cover .subtitle {
+      font-size: 26px;
+      font-family: var(--font-body);
+      color: var(--muted);
+      margin-bottom: 50px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+    }
+
+    .cover .from {
+      font-size: 18px;
+      color: var(--muted);
+      margin-top: 70px;
+      font-style: italic;
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
     .cover .decorative {
-      font-size: 80px;
+      font-size: 100px;
+      margin: 30px 0;
+      filter:
+        drop-shadow(0 4px 12px rgba(0,0,0,0.1))
+        hue-rotate(10deg);
+    }
+
+    .cover .dedication {
+      margin-top: 40px;
+      font-size: 21px;
       color: var(--accent);
-      margin: 20px 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 300;
     }
 
-    /* Voucher styles */
-    .voucher {
-      background: var(--surface);
-      border: 2px dashed var(--border);
-      border-radius: 12px;
-      padding: 40px;
-      margin: 20px 0;
+    /* Art Nouveau flourish divider */
+    .flourish {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--accent) 20%,
+        var(--gold) 50%,
+        var(--accent) 80%,
+        transparent 100%
+      );
+      margin: 30px auto;
+      border-radius: 50px;
       position: relative;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
     }
 
-    .voucher::before,
-    .voucher::after {
+    .flourish::before,
+    .flourish::after {
       content: '';
       position: absolute;
-      width: 30px;
-      height: 30px;
-      background: var(--bg);
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
       border-radius: 50%;
       top: 50%;
       transform: translateY(-50%);
-      border: 2px solid var(--border);
     }
 
+    .flourish::before {
+      left: -4px;
+    }
+
+    .flourish::after {
+      right: -4px;
+    }
+
+    /* Voucher — Art Nouveau ticket with organic curves */
+    .voucher {
+      background:
+        radial-gradient(ellipse at top left, white 0%, var(--surface) 100%);
+      border: 4px solid var(--accent);
+      border-radius: 40px 10px 40px 10px;
+      padding: 55px 45px;
+      margin: 20px 0;
+      position: relative;
+      box-shadow:
+        0 6px 30px rgba(0,0,0,0.12),
+        inset 0 2px 0 rgba(255,255,255,1),
+        inset 0 0 80px rgba(0,0,0,0.02);
+      overflow: visible;
+    }
+
+    /* Organic whiplash accent on top */
     .voucher::before {
-      left: -16px;
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 15%;
+      right: 15%;
+      height: 6px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--gold) 10%,
+        var(--accent) 50%,
+        var(--gold) 90%,
+        transparent 100%
+      );
+      border-radius: 50px;
     }
 
+    /* Art Nouveau nature motif — stylized plant stem */
     .voucher::after {
-      right: -16px;
+      content: '';
+      position: absolute;
+      bottom: 20px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      background:
+        radial-gradient(ellipse at center, var(--sage) 0%, transparent 60%);
+      opacity: 0.15;
+      border-radius: 50% 0 50% 0;
+    }
+
+    /* Decorative organic punch-outs */
+    .voucher .punch-left,
+    .voucher .punch-right {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: var(--bg);
+      border-radius: 50% 0 50% 0;
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+      border: 4px solid var(--accent);
+      box-shadow:
+        inset 0 3px 6px rgba(0,0,0,0.08),
+        0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .voucher .punch-left {
+      left: -25px;
+    }
+
+    .voucher .punch-right {
+      right: -25px;
+      transform: translateY(-50%) rotate(-45deg);
     }
 
     .voucher-header {
       text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid var(--border);
+      position: relative;
+    }
+
+    /* Art Nouveau corner flourish */
+    .voucher-header::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: var(--gold);
+      border-radius: 50% 0;
+      transform: translateX(-50%) rotate(45deg);
+      opacity: 0.6;
     }
 
     .voucher-number {
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
-      letter-spacing: 0.5px;
-      color: var(--muted);
+      letter-spacing: 2.5px;
+      color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     .voucher-title {
       font-family: var(--font-display);
-      font-size: 32px;
-      font-weight: 500;
-      line-height: 1.3;
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 1.2;
       color: var(--fg);
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      font-style: italic;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
     }
 
     .voucher-body {
-      margin: 30px 0;
+      margin: 40px 0;
+      position: relative;
+      z-index: 1;
     }
 
     .voucher-description {
-      font-size: 17px;
-      line-height: 1.6;
-      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--fg);
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      font-weight: 300;
     }
 
     .voucher-from {
       text-align: right;
-      font-size: 15px;
-      color: var(--muted);
+      font-size: 17px;
+      color: var(--accent);
       font-style: italic;
-      margin-top: 30px;
+      margin-top: 40px;
+      font-family: var(--font-display);
+      font-weight: 300;
     }
 
     .voucher-footer {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid var(--border);
       text-align: center;
       font-size: 14px;
       color: var(--muted);
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.5px;
     }
 
-    /* Navigation */
+    /* Navigation — Art Nouveau jewel */
     .nav {
       position: fixed;
-      bottom: 30px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      padding: 12px 24px;
+      background:
+        radial-gradient(ellipse at center, white 0%, var(--surface) 100%);
+      border: 4px solid var(--accent);
+      border-radius: 60px;
+      padding: 18px 36px;
       display: flex;
-      gap: 20px;
+      gap: 28px;
       align-items: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.18),
+        inset 0 2px 0 rgba(255,255,255,1),
+        inset 0 -2px 8px rgba(0,0,0,0.05);
       z-index: 1000;
     }
 
+    /* Organic gradient buttons */
     .nav button {
-      background: var(--accent);
-      color: var(--surface);
-      border: none;
-      padding: 8px 20px;
-      border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--sage) 100%);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+      padding: 11px 26px;
+      border-radius: 40px;
       font-size: 15px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       font-family: var(--font-body);
+      box-shadow:
+        0 3px 12px rgba(0,0,0,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+      letter-spacing: 0.5px;
     }
 
-    .nav button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    .nav button:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.08);
+      box-shadow:
+        0 6px 20px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.4);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+    }
+
+    .nav button:active:not(:disabled) {
+      transform: translateY(-1px) scale(1.02);
     }
 
     .nav button:disabled {
@@ -219,14 +432,18 @@
       color: var(--muted);
       cursor: not-allowed;
       transform: none;
+      box-shadow: none;
+      border-color: transparent;
     }
 
     .nav .counter {
-      font-size: 15px;
-      color: var(--muted);
+      font-size: 17px;
+      color: var(--accent);
       font-weight: 500;
-      min-width: 80px;
+      min-width: 95px;
       text-align: center;
+      font-family: var(--font-display);
+      font-style: italic;
     }
 
     /* Print styles */
@@ -248,7 +465,7 @@
 
       .voucher {
         margin: 40px auto;
-        max-width: 600px;
+        max-width: 700px;
       }
 
       .cover {
@@ -256,21 +473,39 @@
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .voucher {
-        padding: 30px 20px;
+        padding: 40px 28px;
       }
 
       .voucher-title {
-        font-size: 24px;
+        font-size: 30px;
+      }
+
+      .cover {
+        padding: 60px 35px;
       }
 
       .cover h1 {
-        font-size: 36px;
+        font-size: 48px;
       }
 
       .cover .subtitle {
-        font-size: 18px;
+        font-size: 20px;
+      }
+
+      .cover .decorative {
+        font-size: 70px;
+      }
+
+      .nav {
+        bottom: 20px;
+        padding: 14px 22px;
+      }
+
+      .nav button {
+        padding: 9px 18px;
+        font-size: 13px;
       }
     }
   </style>
@@ -280,364 +515,344 @@
     <!-- Cover Page -->
     <div class="page active" data-page="0">
       <div class="cover">
-        <div class="decorative">🎁</div>
-        <h1>Verjaardags Voucher Boekske</h1>
-        <p class="subtitle">23 belooftes, herieneringn & twijfelachtige beslissingn</p>
-        <p class="from">Van ewen zes kindern (en Madouce)<br>Me vele liefde, chaos, en af en toe ne grap zeker</p>
+        <div class="cover-content">
+          <h1>Verjaardags<br>Voucher Boek</h1>
+          <div class="flourish"></div>
+          <p class="subtitle">19 beloftes van ewen familie</p>
+          <p class="from">Van Felix, Zeno, Luiza, Alma,<br>Selien, Fideel, Elooi, Emiel, Flore<br>& Madouce<br><br>Me vele liefde</p>
+        </div>
       </div>
     </div>
 
-    <!-- Voucher 1 -->
+    <!-- Felix Voucher 1 -->
     <div class="page" data-page="1">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 01</div>
+          <h2 class="voucher-title">Nen Oesgekookte Mooltriet</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Nen heeln driegangn-mooltriet, volledig zelve gemoakt. Gij meut zeggn wa da ge wilt eetn, ik zorg voor ole rest — van de winkel tot de vaat.</p>
+        </div>
+        <p class="voucher-from">— Van Felix (kleinzône)</p>
+        <div class="voucher-footer">Oltied geldig · 48 uurn op voorand</div>
+      </div>
+    </div>
+
+    <!-- Felix Voucher 2 -->
+    <div class="page" data-page="2">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 02</div>
+          <h2 class="voucher-title">Museumpas — 5 Bezoekn</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Nen museumpas me 5 bezoekn — ollemoal me mie meegekoomn. Gij kiest wa voo museum, ik riej en zorg vo kaffe nadien.</p>
+        </div>
+        <p class="voucher-from">— Van Felix (kleinzône)</p>
+        <div class="voucher-footer">5 afzoenderlijke bezoekn · Kaffe en koeke ton bij</div>
+      </div>
+    </div>
+
+    <!-- Zeno + Luiza + Alma Voucher 1 -->
+    <div class="page" data-page="3">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 03</div>
+          <h2 class="voucher-title">Kimchi-Dag — Koreoansche Traditie</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">In Korea komn familie en hele dorpn somen vo kimchi te moakn. Van ons krieg je da cadeau! Superlekker, gezoend en vooral leuk vo somen te doen.</p>
+        </div>
+        <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
+        <div class="voucher-footer">Oltied geldig · Ingrediëntn ton bij</div>
+      </div>
+    </div>
+
+    <!-- Zeno + Luiza + Alma Voucher 2 -->
+    <div class="page" data-page="4">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 04</div>
+          <h2 class="voucher-title">Live Portret Schildern</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Ik kom live e portret schildern van oe vo boven ewen bêd te oangn. Pure kunst, persoonlijk gemoakt, en misschien wel nen nieuwen familieschât.</p>
+        </div>
+        <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
+        <div class="voucher-footer">Oltied geldig · Kunstenaar incluus</div>
+      </div>
+    </div>
+
+    <!-- Zeno + Luiza + Alma Voucher 3 -->
+    <div class="page" data-page="5">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 05</div>
+          <h2 class="voucher-title">Somen Uut Eetn in Rio de Janeiro</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Ontdek somen me ons de locale eetculture van Rio. Echte Brazilioansche gerechtn, exotische smoakn, en nen avond da ge nie zult vergetn.</p>
+        </div>
+        <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
+        <div class="voucher-footer">Geldig als ge in Rio zeit · Avontuur gegarandeerd</div>
+      </div>
+    </div>
+
+    <!-- Zeno + Luiza + Alma Voucher 4 -->
+    <div class="page" data-page="6">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 06</div>
+          <h2 class="voucher-title">Persoonlijke Chauffeur 24/7</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Tele. 0491546114. Beschikboar dage en nachte. 10/10 service. (Ik ê bijna mien rijbewijs, dus det komt geweun goê.)</p>
+        </div>
+        <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
+        <div class="voucher-footer">24/7 beschikboar · Rijbewijs komt d'r an</div>
+      </div>
+    </div>
+
+    <!-- Selien Voucher 1 -->
+    <div class="page" data-page="7">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 07</div>
+          <h2 class="voucher-title">Pedicure bij Jessie</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Nen pedicure bij Jessie — professioneel, ontspannend, en ewen voetn verdient det. Afspraoke moak ik, gij moet allêne komn.</p>
+        </div>
+        <p class="voucher-from">— Van Selien</p>
+        <div class="voucher-footer">Oltied geldig · Afspraoke ton bij</div>
+      </div>
+    </div>
+
+    <!-- Selien Voucher 2 -->
+    <div class="page" data-page="8">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 08</div>
+          <h2 class="voucher-title">Lunch bij Diana op 19/5</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Nen middag somen lunchen bij Diana op 19 mei. Geweun gezellig, lekker eetn, en goê klappn.</p>
+        </div>
+        <p class="voucher-from">— Van Selien</p>
+        <div class="voucher-footer">Geldig op 19 mei · Diana verwacht ons</div>
+      </div>
+    </div>
+
+    <!-- Fideel Voucher 1 -->
+    <div class="page" data-page="9">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 09</div>
+          <h2 class="voucher-title">Fotoalbum Moakn</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Nen hele middag somen foto's sorteern, scannen, en ne schone album moakn. Van chaos noa nen boek woar da je trots op zeit.</p>
+        </div>
+        <p class="voucher-from">— Van Fideel</p>
+        <div class="voucher-footer">Oltied geldig · Snacks en verhaoln ton bij</div>
+      </div>
+    </div>
+
+    <!-- Fideel Voucher 2 -->
+    <div class="page" data-page="10">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 10</div>
+          <h2 class="voucher-title">Autorit me Lunch</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Nen ritje noa woar dan da gij wilt, en doan lunchen me somen. Ik riej, gij kiest de route (of nie, verdwoaln is ok ton leuk).</p>
+        </div>
+        <p class="voucher-from">— Van Fideel</p>
+        <div class="voucher-footer">Oltied geldig · Benziene en lunch ton bij</div>
+      </div>
+    </div>
+
+    <!-- Fideel Voucher 3 -->
+    <div class="page" data-page="11">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 11</div>
+          <h2 class="voucher-title">Kom Eetn — 5 Gangn</h2>
+        </div>
+        <div class="voucher-body">
+          <p class="voucher-description">Kom eetn bij mie — 5 gangn, ollemoal zelfgemoakt. Gij moet allêne komn en genietn, ik zorg vo ole rest.</p>
+        </div>
+        <p class="voucher-from">— Van Fideel</p>
+        <div class="voucher-footer">Oltied geldig · 1 week op voorand</div>
+      </div>
+    </div>
+
+    <!-- Elooi Voucher 1 -->
+    <div class="page" data-page="12">
+      <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
+        <div class="voucher-header">
+          <div class="voucher-number">Voucher Nr. 12</div>
           <h2 class="voucher-title">Éne Thuusgekookten Eten</h2>
         </div>
         <div class="voucher-body">
           <p class="voucher-description">E volledie driegangenmenu gekookt me liefde (en misschiens e bitje van die anders-pittie kruidn). Gie kiest 't menu, ik doe al 't reste van de boodschappn toet de vaat.</p>
         </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Eeuwig geldig · Nie over te droagn · Twé doagn vooraf latent weetn zekere</div>
-      </div>
-    </div>
-
-    <!-- Voucher 2 -->
-    <div class="page" data-page="2">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 02</div>
-          <h2 class="voucher-title">E Museumsbezoekske</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">Welk museum da ge wilt—kunst, geschiedenisse, of iets heele speciaal obscuur. Ik breng u, ik betaal d'intree, en ik goan effectief de tekstjes leezn in plekke van rap-rap deure te loopn lik e gekke.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Eeuwig geldig · Koffi en teirte derna inbegreepn</div>
-      </div>
-    </div>
-
-    <!-- Voucher 3 -->
-    <div class="page" data-page="3">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 03</div>
-          <h2 class="voucher-title">Tochtje Noa Holland</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">Ik breng u noa Holland zodat ik kan oeffenn me riedn EN e bitje legale recreationele supplieken oppikken. Gie krigt e gratis rit, ik kriegn rijervaring en feestmateriaal. Win-win zekere.</p>
-        </div>
         <p class="voucher-from">— Van Elooi (ewen favoriet natuurlik)</p>
-        <div class="voucher-footer">Geldig als 't schone wer is · Gene oordeel gegarandeerd</div>
+        <div class="voucher-footer">Oltied geldig · Anders-pittie kruidn incluus</div>
       </div>
     </div>
 
-    <!-- Voucher 4 -->
-    <div class="page" data-page="4">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 04</div>
-          <h2 class="voucher-title">Papas Kunstarchief Sorteern</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E vollen namiddagt samn deure Papas werk goan—sorteern, herieneringn ophoaln, schreien, loachent. Ik breng de papiern zakdoekn en 't geduld mee.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Geldig wanneer da ge kloare ziet · Emotionele steun inbegreepn</div>
-      </div>
-    </div>
-
-    <!-- Voucher 5 -->
-    <div class="page" data-page="5">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 05</div>
-          <h2 class="voucher-title">Vollediege Dagt Underweg (200km rond)</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">Gie kiest e bestemming bienvn de 200km. Ik riedn, gie navigeert (of nie—verdwoald roakn is de helft van 't plezier zekere). Metient eetn, hapkes, en spontoane omweegn.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Heel 't joar geldig · Wer-bestendig avontuur</div>
-      </div>
-    </div>
-
-    <!-- Voucher 6 -->
-    <div class="page" data-page="6">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 06</div>
-          <h2 class="voucher-title">Breisessie</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E vollen namiddagt woar da 'k effectief wokker blijf, oplettent ben, en oprecht probeern te leirn breien. Gene garantie ip 't resultaat, moa 'k beloof te probeern zeker eh.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Oltied geldig · Geduld vereist (van ons beein)</div>
-      </div>
-    </div>
-
-    <!-- Voucher 7 -->
-    <div class="page" data-page="7">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 07</div>
-          <h2 class="voucher-title">Weekeinde Vol Gekooke</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E volledig weekeinde woar da 'k al ewe maaltiedn kook—ontbiet, middag, en oavondeetn. Gie komt geweun eetn en vertelt mie welke te pittig worn (en welke anders-pittig zeker).</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">E weeke vooraf latent weetn · Keuken kuuisn inbegreepn</div>
-      </div>
-    </div>
-
-    <!-- Voucher 8 -->
-    <div class="page" data-page="8">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 08</div>
-          <h2 class="voucher-title">Fotoalbum Moakn</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E sessie om tientoalln joarn familiefoto's te sorteern—scann, beplakkn, vertoalln. We goan van chaos e proper album moakn woar da ge effectief kunt deure bleirn.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Eeuwig geldig · Hapkes & verhaaln vereist</div>
-      </div>
-    </div>
-
-    <!-- Voucher 9 -->
-    <div class="page" data-page="9">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 09</div>
-          <h2 class="voucher-title">Viefst Wandeliengn Me Madouce</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">In te wisseln as ge moede zit en Madouce noa u stoat te stoarn me die oogn van "ik zien ol UURN nie buutn geweest". Goed vo eln route, eln wer.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern (Madouce goedgekeurd)</p>
-        <div class="voucher-footer">Geldig vo 5 seperoate wandeliengn · Reegn of zonne</div>
-      </div>
-    </div>
-
-    <!-- Voucher 10 -->
-    <div class="page" data-page="10">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 10</div>
-          <h2 class="voucher-title">Grote Kuus Achter E Feestje</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E groendige keukesche noa da ge e groot etentje gegeven het. Ik pak de vaat, de toogn, de vloere—al die zoakn da ge hoat als ge doodop zit.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Geldig noa eln feestje · Gene oordeel over de zooi</div>
-      </div>
-    </div>
-
-    <!-- Voucher 11 -->
-    <div class="page" data-page="11">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 11</div>
-          <h2 class="voucher-title">Computerhulp Sessie</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">Uw GSM doet vreemt? TV wil nie koppeln? WiFi is mysterieus? E volledige sessie woar da 'k 't fixe of sterfn in de poging. Metient geduldige uutleg en gene gezuchtn.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Oltied geldig · Support van ip afstand meugelik</div>
-      </div>
-    </div>
-
-    <!-- Voucher 12 -->
-    <div class="page" data-page="12">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 12</div>
-          <h2 class="voucher-title">Boodschappn-Sjouwer Dienst</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E boodschappnrit woar da 'k ollemoale sjouwe. Gie wiist, ik loade. Gie kopt, ik slepe. Ewe armn blijvn vrij, de mijne wordn sterker.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Eln weeke meugelik · Zwoarte zakken welkom</div>
-      </div>
-    </div>
-
-    <!-- Voucher 13 -->
+    <!-- Elooi Voucher 2 -->
     <div class="page" data-page="13">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 13</div>
-          <h2 class="voucher-title">Namiddagt Int Hof Weirkn</h2>
+          <h2 class="voucher-title">Website vo "De Tuin van Walter"</h2>
         </div>
         <div class="voucher-body">
-          <p class="voucher-description">Oenkriud trekkn, plantent zetn, mulchen, snoeien—woavvan da ge 't moat hebben. E vollen namiddagt zwoegn zodat uw hof er precies uutziet lik da ge 't wilt.</p>
+          <p class="voucher-description">Me somen e website bouwn vo "De Tuin van Walter" — somen designn, somen vullenze, somen online zettn. E digitoale monument vo pepe zijn erfenis.</p>
         </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Geldig van lente tout heirfst · Handskoenn nie metlient</div>
+        <p class="voucher-from">— Van Elooi (ewen favoriet natuurlik)</p>
+        <div class="voucher-footer">Oltied geldig · Hosting en domein ton bij</div>
       </div>
     </div>
 
-    <!-- Voucher 14 -->
+    <!-- Elooi Voucher 3 -->
     <div class="page" data-page="14">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 14</div>
-          <h2 class="voucher-title">Ruzzie-Overgaave</h2>
+          <h2 class="voucher-title">Ritje Noa Nederland</h2>
         </div>
         <div class="voucher-body">
-          <p class="voucher-description">E kier da 'k u loat winn in e ruzzie ookal da 'k objectief, wetenschappelik, en filosofisch gezien geliek en. Wiest strategisch—dit is e once-in-a-lifetime anbieding zeker.</p>
+          <p class="voucher-description">Ik riej oe noa Nederland zodat ik kan leern riejn EN neffens ton wiet kopen. Gij krieg ne gratis rit, ik krijg praktijk en tichel. Win-win.</p>
         </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Énmoalig gebruuk · Kiest wies</div>
+        <p class="voucher-from">— Van Elooi (ewen favoriet natuurlik)</p>
+        <div class="voucher-footer">Geldig als 't wêer goê is · Gene veroordeelienge</div>
       </div>
     </div>
 
-    <!-- Voucher 15 -->
+    <!-- Emiel + Flore Voucher 1 -->
     <div class="page" data-page="15">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 15</div>
-          <h2 class="voucher-title">Nood-Madouce-Oppas</h2>
+          <h2 class="voucher-title">Kom Eetn</h2>
         </div>
         <div class="voucher-body">
-          <p class="voucher-description">E "kun je Madouce 't weekeinde houwn?" get-out-of-jail-free kaarte. Breng heur me minimale vooraf-waarschuwienge—wandeliengn, voedern, knuffels ollemoale inbegreepn. Gene vroagn gevroogd.</p>
+          <p class="voucher-description">Kom eetn bij ons, ollemoal somen — me Flore ton natuurlik. Gezellig aan toafel, lekker voedsels, en goê gesjat.</p>
         </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Geldig vo é weekeinde · Madouce goa verwend wordn</div>
+        <p class="voucher-from">— Van Emiel & Flore</p>
+        <div class="voucher-footer">Oltied geldig · Flore erbij</div>
       </div>
     </div>
 
-    <!-- Voucher 16 -->
+    <!-- Emiel + Flore Voucher 2 -->
     <div class="page" data-page="16">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 16</div>
-          <h2 class="voucher-title">Anders-Pittig Eetn</h2>
+          <h2 class="voucher-title">Ik Kom Kookn</h2>
         </div>
         <div class="voucher-body">
-          <p class="voucher-description">E thuusgekokte moaltied me OLLENE de kruidn da ge categoriseert als "anders-pittig". Ik goan m'n best doen om 't verschil te snappn en nie tevele verduddelikende vroagn stelln.</p>
+          <p class="voucher-description">Ik kom noa ewen uus en kook e hele mooltriet vo oe. Gij moet allêne aan toafel zitn en genietn. Flore helpt ton mee.</p>
         </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Oltied geldig · Verwarrienge gegarandeerd</div>
+        <p class="voucher-from">— Van Emiel & Flore</p>
+        <div class="voucher-footer">Oltied geldig · 48 uurn op voorand</div>
       </div>
     </div>
 
-    <!-- Voucher 17 -->
+    <!-- Emiel + Flore Voucher 3 -->
     <div class="page" data-page="17">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 17</div>
-          <h2 class="voucher-title">Favoriet-Kind Referendum</h2>
+          <h2 class="voucher-title">Somen Uitstap</h2>
         </div>
         <div class="voucher-body">
-          <p class="voucher-description">Én eerlik antwoord ip "wie van ons is nu effectief uw favoriet?" Elooi is uutgeslotn van 't stemproces weegens belangnconflict. De woarheid goa ons vriemoakn (of e krig startnt zeker).</p>
+          <p class="voucher-description">Nen gans dag somen eroet — gij kiest woar noa, wij regeern de rest. Me Flore ton natuurlik. Avontuur gegarandeerd.</p>
         </div>
-        <p class="voucher-from">— Van Selien, Leonard, Liza, Emiel & Fideel</p>
-        <div class="voucher-footer">Énmoalig gebruuk · Elooi gediskwalificeerd · Chaos woarschienlik</div>
+        <p class="voucher-from">— Van Emiel & Flore</p>
+        <div class="voucher-footer">Oltied geldig · Flore erbij</div>
       </div>
     </div>
 
-    <!-- Voucher 18 -->
+    <!-- Madouce Voucher -->
     <div class="page" data-page="18">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 18</div>
-          <h2 class="voucher-title">Dramatische Recept-Voorleezinge</h2>
+          <h2 class="voucher-title">5 Madouce Wandelingskes</h2>
         </div>
         <div class="voucher-body">
-          <p class="voucher-description">E theatermoatig, overdreven voorleezinge van e recept da ge ol 40 joar van buutn kent. Vol Shakespeariaanse delivery: "Doet der ZOUT... noa SMOAKE... mor NIE tevele eh!"</p>
+          <p class="voucher-description">Af te loosn wanneer dan da ge moê zeit en Madouce noa oe stoart me die "ik ê ol uurn nie buutn geweest"-blik. Geldig vo elke route, elk wêer.</p>
         </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Oltied geldig · Publiek meedoen optioneel</div>
+        <p class="voucher-from">— Van Elooi</p>
+        <div class="voucher-footer">Geldig vo 5 afzoenderlijke wandelingskes · Regn of zonne</div>
       </div>
     </div>
 
-    <!-- Voucher 19 -->
+    <!-- Reprint Voucher -->
     <div class="page" data-page="19">
       <div class="voucher">
+        <div class="punch-left"></div>
+        <div class="punch-right"></div>
         <div class="voucher-header">
           <div class="voucher-number">Voucher Nr. 19</div>
-          <h2 class="voucher-title">Breiles (Geduldige Versie)</h2>
+          <h2 class="voucher-title">Dit Boekske Herdrukken</h2>
         </div>
         <div class="voucher-body">
-          <p class="voucher-description">E oprechte poging om van u breien te leirn. Metient verplicht geduld van u en verplichte focusst van mie. Gene gespot toegeloatn als ik onvermiedelik e klonterig disastertje moake.</p>
+          <p class="voucher-description">Als ge dit boekske verliest (en det goa je doen, me kennze oe), mag je dit gratis loatn herdrukken. Gene veroordeelienge, gene "woar het da geloogn?", gene "moeke toch".</p>
         </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Oltied geldig · Wole geleverd deur student</div>
-      </div>
-    </div>
-
-    <!-- Voucher 20 -->
-    <div class="page" data-page="20">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 20</div>
-          <h2 class="voucher-title">Dansfeestje Int Salon</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E spontaan dansfeestje int salon. Gie kiest de muziek, ik goan effectief me enthousiasme dansn. Waardigheid is optioneel, meedoen is verplicht.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Oltied geldig · De buurln goan oordeeln · 't En interesseert ons nie</div>
-      </div>
-    </div>
-
-    <!-- Voucher 21 -->
-    <div class="page" data-page="21">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 21</div>
-          <h2 class="voucher-title">Pittigheids-Taolkunde Seminoar</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E kier da 'k doen alsof da 'k uw uutleg over 't verschil tussn "pittig" en "anders-pittig" volledig snappen. Metient knikkn, notan neemn, en opvolgvroagn.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Oltied geldig · Begrip nie gegarandeerd</div>
-      </div>
-    </div>
-
-    <!-- Voucher 22 -->
-    <div class="page" data-page="22">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 22</div>
-          <h2 class="voucher-title">Joa Moeke, Gie Het Geliek Dagt</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E vollediege dagt woar da 'k ip eln vroogte, suggestie, en menienge antwoorde me "joa moeke, gie het heelegans geliek". Gene debat. Gene teegnsproake. Geweun pure, onvoorwoordelijke instemmienge.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern</p>
-        <div class="voucher-footer">Geldig vo 24 uurn · Gebruikt 't wies</div>
-      </div>
-    </div>
-
-    <!-- Voucher 23 -->
-    <div class="page" data-page="23">
-      <div class="voucher">
-        <div class="voucher-header">
-          <div class="voucher-number">Voucher Nr. 23</div>
-          <h2 class="voucher-title">Madouce FaceTime Speciaal</h2>
-        </div>
-        <div class="voucher-body">
-          <p class="voucher-description">E FaceTime woar da Madouce mér screentime krigt dan ik. Ik houw de telefoon ip hondenoogte, geef traktaatsjes vo de performance, en vertelle ollemoale heure bewegiengn me e rustieg stemmeke.</p>
-        </div>
-        <p class="voucher-from">— Van ewen kindern (& Madouce)</p>
-        <div class="voucher-footer">Oltied geldig · Hondencontent gegarandeerd</div>
+        <p class="voucher-from">— Van Elooi</p>
+        <div class="voucher-footer">Unlimited gebruuk · Me zien 't ol komn</div>
       </div>
     </div>
   </div>
 
   <!-- Navigation -->
   <div class="nav">
-    <button id="prevBtn" onclick="changePage(-1)">← Voriege</button>
-    <span class="counter"><span id="currentPage">1</span> / 24</span>
-    <button id="nextBtn" onclick="changePage(1)">Volgende →</button>
+    <button id="prevBtn" onclick="changePage(-1)">← Vorigste</button>
+    <span class="counter"><span id="currentPage">1</span> / 20</span>
+    <button id="nextBtn" onclick="changePage(1)">Volgste →</button>
   </div>
 
   <script>
@@ -646,7 +861,7 @@
     const totalPages = pages.length;
 
     // Load saved position
-    const savedPage = localStorage.getItem('voucherBookPageWF');
+    const savedPage = localStorage.getItem('voucherBookPage');
     if (savedPage !== null) {
       currentPage = parseInt(savedPage);
     }
@@ -667,7 +882,7 @@
       document.getElementById('nextBtn').disabled = (currentPage === totalPages - 1);
 
       // Save position
-      localStorage.setItem('voucherBookPageWF', currentPage);
+      localStorage.setItem('voucherBookPage', currentPage);
     }
 
     function changePage(direction) {
