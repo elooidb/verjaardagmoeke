@@ -530,38 +530,158 @@
     }
 
     @media (max-width: 700px) {
-      .voucher {
-        padding: 40px 28px;
-      }
-
-      .voucher-title {
-        font-size: 30px;
+      body {
+        padding: 12px;
       }
 
       .cover {
-        padding: 60px 35px;
+        padding: 40px 24px;
+        min-height: 500px;
+        border-width: 3px;
       }
 
       .cover h1 {
-        font-size: 48px;
+        font-size: 42px;
+        margin-bottom: 16px;
       }
 
       .cover .subtitle {
-        font-size: 20px;
+        font-size: 18px;
+        margin-bottom: 30px;
       }
 
-      .cover .decorative {
-        font-size: 70px;
+      .cover .from {
+        font-size: 16px;
+        margin-top: 50px;
+        line-height: 1.8;
+      }
+
+      .flourish {
+        width: 80px;
+        margin: 20px auto;
+      }
+
+      .voucher {
+        padding: 32px 20px;
+        border-width: 3px;
+        border-radius: 30px 8px 30px 8px;
+      }
+
+      .voucher::before {
+        left: 10%;
+        right: 10%;
+        height: 5px;
+      }
+
+      .voucher .punch-left,
+      .voucher .punch-right {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+      }
+
+      .voucher .punch-left {
+        left: -20px;
+      }
+
+      .voucher .punch-right {
+        right: -20px;
+      }
+
+      .voucher-header {
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+      }
+
+      .voucher-number {
+        font-size: 11px;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+      }
+
+      .voucher-title {
+        font-size: 28px;
+        margin-bottom: 12px;
+      }
+
+      .voucher-body {
+        margin: 28px 0;
+      }
+
+      .voucher-description {
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+
+      .voucher-from {
+        font-size: 15px;
+        margin-top: 28px;
+      }
+
+      .voucher-footer {
+        margin-top: 28px;
+        padding-top: 20px;
+        font-size: 13px;
+      }
+
+      .send-btn {
+        margin-top: 24px;
+        padding: 16px 32px;
+        font-size: 16px;
+        border-radius: 50px;
+        width: 100%;
+        max-width: 320px;
       }
 
       .nav {
-        bottom: 20px;
-        padding: 14px 22px;
+        bottom: 16px;
+        padding: 14px 20px;
+        gap: 16px;
+        border-width: 3px;
+        border-radius: 50px;
+        max-width: calc(100vw - 24px);
       }
 
       .nav button {
-        padding: 9px 18px;
+        padding: 11px 20px;
+        font-size: 14px;
+        border-radius: 30px;
+        min-width: 90px;
+      }
+
+      .nav .counter {
+        font-size: 15px;
+        min-width: 70px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .cover h1 {
+        font-size: 36px;
+      }
+
+      .cover .subtitle {
+        font-size: 16px;
+      }
+
+      .voucher-title {
+        font-size: 24px;
+      }
+
+      .voucher-description {
+        font-size: 15px;
+      }
+
+      .nav button {
+        padding: 10px 16px;
         font-size: 13px;
+        min-width: 80px;
+      }
+
+      .nav .counter {
+        font-size: 14px;
+        min-width: 60px;
       }
     }
   </style>
@@ -1053,6 +1173,40 @@
       if (e.key === 'ArrowLeft') changePage(-1);
       if (e.key === 'ArrowRight') changePage(1);
     });
+
+    // Touch gesture support for swipe navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const horizontalDiff = touchEndX - touchStartX;
+      const verticalDiff = Math.abs(touchEndY - touchStartY);
+
+      // Only trigger swipe if horizontal movement is greater than vertical
+      // and horizontal movement exceeds threshold (50px)
+      if (Math.abs(horizontalDiff) > 50 && Math.abs(horizontalDiff) > verticalDiff) {
+        if (horizontalDiff > 0) {
+          // Swipe right - go to previous page
+          changePage(-1);
+        } else {
+          // Swipe left - go to next page
+          changePage(1);
+        }
+      }
+    }
 
     // Initialize
     showPage(currentPage);
