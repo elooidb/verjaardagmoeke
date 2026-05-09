@@ -376,6 +376,62 @@
       letter-spacing: 0.5px;
     }
 
+    /* Send button */
+    .send-btn {
+      margin-top: 30px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--sage) 100%);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      font-family: var(--font-body);
+      box-shadow:
+        0 3px 12px rgba(0,0,0,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+      letter-spacing: 0.5px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .send-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow:
+        0 6px 20px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.4);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+    }
+
+    .send-btn:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    .send-btn.sent {
+      background: var(--border);
+      color: var(--muted);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      border-color: transparent;
+    }
+
+    /* Grayed out voucher */
+    .voucher.redeemed {
+      opacity: 0.5;
+      filter: grayscale(80%);
+      pointer-events: none;
+    }
+
+    .voucher.redeemed .send-btn {
+      background: var(--border);
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
     /* Navigation — Art Nouveau jewel */
     .nav {
       position: fixed;
@@ -538,6 +594,7 @@
         </div>
         <p class="voucher-from">— Van Felix (kleinzône)</p>
         <div class="voucher-footer">Oltied geldig · 48 uurn op voorand</div>
+        <button class="send-btn" onclick="sendVoucher(1, 'Felix', '+32485070326')">📱 Verstuur noa Felix</button>
       </div>
     </div>
 
@@ -555,6 +612,7 @@
         </div>
         <p class="voucher-from">— Van Felix (kleinzône)</p>
         <div class="voucher-footer">5 afzoenderlijke bezoekn · Kaffe en koeke ton bij</div>
+        <button class="send-btn" onclick="sendVoucher(2, 'Felix', '+32485070326')">📱 Verstuur noa Felix</button>
       </div>
     </div>
 
@@ -572,6 +630,7 @@
         </div>
         <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
         <div class="voucher-footer">Oltied geldig · Ingrediëntn ton bij</div>
+        <button class="send-btn" onclick="sendVoucher(3, 'Zeno', '+32491546114')">📱 Verstuur noa Zeno</button>
       </div>
     </div>
 
@@ -589,6 +648,7 @@
         </div>
         <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
         <div class="voucher-footer">Oltied geldig · Kunstenaar incluus</div>
+        <button class="send-btn" onclick="sendVoucher(4, 'Zeno', '+32491546114')">📱 Verstuur noa Zeno</button>
       </div>
     </div>
 
@@ -606,6 +666,7 @@
         </div>
         <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
         <div class="voucher-footer">Geldig als ge in Rio zeit · Avontuur gegarandeerd</div>
+        <button class="send-btn" onclick="sendVoucher(5, 'Zeno', '+32491546114')">📱 Verstuur noa Zeno</button>
       </div>
     </div>
 
@@ -623,6 +684,7 @@
         </div>
         <p class="voucher-from">— Van Zeno, Luiza & Alma</p>
         <div class="voucher-footer">24/7 beschikboar · Rijbewijs komt d'r an</div>
+        <button class="send-btn" onclick="sendVoucher(6, 'Zeno', '+32491546114')">📱 Verstuur noa Zeno</button>
       </div>
     </div>
 
@@ -640,6 +702,7 @@
         </div>
         <p class="voucher-from">— Van Selien</p>
         <div class="voucher-footer">Oltied geldig · Afspraoke ton bij</div>
+        <button class="send-btn" onclick="sendVoucher(7, 'Selien', '+32497709962')">📱 Verstuur noa Selien</button>
       </div>
     </div>
 
@@ -657,6 +720,7 @@
         </div>
         <p class="voucher-from">— Van Selien</p>
         <div class="voucher-footer">Geldig op 19 mei · Diana verwacht ons</div>
+        <button class="send-btn" onclick="sendVoucher(8, 'Selien', '+32497709962')">📱 Verstuur noa Selien</button>
       </div>
     </div>
 
@@ -674,6 +738,7 @@
         </div>
         <p class="voucher-from">— Van Fideel</p>
         <div class="voucher-footer">Oltied geldig · Snacks en verhaoln ton bij</div>
+        <button class="send-btn" onclick="sendVoucher(9, 'Fideel', '+32476775502')">📱 Verstuur noa Fideel</button>
       </div>
     </div>
 
@@ -691,6 +756,7 @@
         </div>
         <p class="voucher-from">— Van Fideel</p>
         <div class="voucher-footer">Oltied geldig · Benziene en lunch ton bij</div>
+        <button class="send-btn" onclick="sendVoucher(10, 'Fideel', '+32476775502')">📱 Verstuur noa Fideel</button>
       </div>
     </div>
 
@@ -708,6 +774,7 @@
         </div>
         <p class="voucher-from">— Van Fideel</p>
         <div class="voucher-footer">Oltied geldig · 1 week op voorand</div>
+        <button class="send-btn" onclick="sendVoucher(11, 'Fideel', '+32476775502')">📱 Verstuur noa Fideel</button>
       </div>
     </div>
 
@@ -725,6 +792,7 @@
         </div>
         <p class="voucher-from">— Van Elooi (ewen favoriet natuurlik)</p>
         <div class="voucher-footer">Oltied geldig · Anders-pittie kruidn incluus</div>
+        <button class="send-btn" onclick="sendVoucher(12, 'Elooi', '+32479389152')">📱 Verstuur noa Elooi</button>
       </div>
     </div>
 
@@ -742,6 +810,7 @@
         </div>
         <p class="voucher-from">— Van Elooi (ewen favoriet natuurlik)</p>
         <div class="voucher-footer">Oltied geldig · Hosting en domein ton bij</div>
+        <button class="send-btn" onclick="sendVoucher(13, 'Elooi', '+32479389152')">📱 Verstuur noa Elooi</button>
       </div>
     </div>
 
@@ -759,6 +828,7 @@
         </div>
         <p class="voucher-from">— Van Elooi (ewen favoriet natuurlik)</p>
         <div class="voucher-footer">Geldig als 't wêer goê is · Gene veroordeelienge</div>
+        <button class="send-btn" onclick="sendVoucher(14, 'Elooi', '+32479389152')">📱 Verstuur noa Elooi</button>
       </div>
     </div>
 
@@ -776,6 +846,7 @@
         </div>
         <p class="voucher-from">— Van Emiel & Flore</p>
         <div class="voucher-footer">Oltied geldig · Flore erbij</div>
+        <button class="send-btn" onclick="sendVoucher(15, 'Emiel', '+32471419199')">📱 Verstuur noa Emiel</button>
       </div>
     </div>
 
@@ -793,6 +864,7 @@
         </div>
         <p class="voucher-from">— Van Emiel & Flore</p>
         <div class="voucher-footer">Oltied geldig · 48 uurn op voorand</div>
+        <button class="send-btn" onclick="sendVoucher(16, 'Emiel', '+32471419199')">📱 Verstuur noa Emiel</button>
       </div>
     </div>
 
@@ -810,6 +882,7 @@
         </div>
         <p class="voucher-from">— Van Emiel & Flore</p>
         <div class="voucher-footer">Oltied geldig · Flore erbij</div>
+        <button class="send-btn" onclick="sendVoucher(17, 'Emiel', '+32471419199')">📱 Verstuur noa Emiel</button>
       </div>
     </div>
 
@@ -827,6 +900,7 @@
         </div>
         <p class="voucher-from">— Van Elooi</p>
         <div class="voucher-footer">Geldig vo 5 afzoenderlijke wandelingskes · Regn of zonne</div>
+        <button class="send-btn" onclick="sendVoucher(18, 'Elooi', '+32479389152')">📱 Verstuur noa Elooi</button>
       </div>
     </div>
 
@@ -844,6 +918,7 @@
         </div>
         <p class="voucher-from">— Van Elooi</p>
         <div class="voucher-footer">Unlimited gebruuk · Me zien 't ol komn</div>
+        <button class="send-btn" onclick="sendVoucher(19, 'Elooi', '+32479389152')">📱 Verstuur noa Elooi</button>
       </div>
     </div>
   </div>
@@ -860,10 +935,93 @@
     const pages = document.querySelectorAll('.page');
     const totalPages = pages.length;
 
+    // Voucher data — title and description for each voucher
+    const voucherData = {
+      1: { title: "Nen Oesgekookte Mooltriet", desc: "Nen heeln driegangn-mooltriet, volledig zelve gemoakt. Gij meut zeggn wa da ge wilt eetn, ik zorg voor ole rest." },
+      2: { title: "Museumpas — 5 Bezoekn", desc: "Nen museumpas me 5 bezoekn — ollemoal me mie meegekoomn. Gij kiest wa voo museum, ik riej en zorg vo kaffe nadien." },
+      3: { title: "Kimchi-Dag", desc: "In Korea komn familie en hele dorpn somen vo kimchi te moakn. Van ons krieg je da cadeau!" },
+      4: { title: "Live Portret Schildern", desc: "Ik kom live e portret schildern van oe vo boven ewen bêd te oangn." },
+      5: { title: "Somen Uut Eetn in Rio", desc: "Ontdek somen me ons de locale eetculture van Rio. Echte Brazilioansche gerechtn!" },
+      6: { title: "Persoonlijke Chauffeur 24/7", desc: "Tele. 0491546114. Beschikboar dage en nachte. (Ik ê bijna mien rijbewijs.)" },
+      7: { title: "Pedicure bij Jessie", desc: "Nen pedicure bij Jessie — professioneel, ontspannend, en ewen voetn verdient det." },
+      8: { title: "Lunch bij Diana op 19/5", desc: "Nen middag somen lunchen bij Diana op 19 mei. Geweun gezellig en goê klappn." },
+      9: { title: "Fotoalbum Moakn", desc: "Nen hele middag somen foto's sorteern, scannen, en ne schone album moakn." },
+      10: { title: "Autorit me Lunch", desc: "Nen ritje noa woar dan da gij wilt, en doan lunchen me somen." },
+      11: { title: "Kom Eetn — 5 Gangn", desc: "Kom eetn bij mie — 5 gangn, ollemoal zelfgemoakt." },
+      12: { title: "Éne Thuusgekookten Eten", desc: "E volledie driegangenmenu gekookt me liefde (en misschiens e bitje van die anders-pittie kruidn)." },
+      13: { title: "Website vo De Tuin van Walter", desc: "Me somen e website bouwn vo De Tuin van Walter — e digitoale monument vo pepe zijn erfenis." },
+      14: { title: "Ritje Noa Nederland", desc: "Ik riej oe noa Nederland zodat ik kan leern riejn EN neffens ton wiet kopen. Win-win." },
+      15: { title: "Kom Eetn", desc: "Kom eetn bij ons, ollemoal somen — me Flore ton natuurlik." },
+      16: { title: "Ik Kom Kookn", desc: "Ik kom noa ewen uus en kook e hele mooltriet vo oe." },
+      17: { title: "Somen Uitstap", desc: "Nen gans dag somen eroet — gij kiest woar noa, wij regeern de rest." },
+      18: { title: "5 Madouce Wandelingskes", desc: "Af te loosn wanneer dan da ge moê zeit en Madouce noa oe stoart me die 'ik ê ol uurn nie buutn geweest'-blik." },
+      19: { title: "Dit Boekske Herdrukken", desc: "Als ge dit boekske verliest, mag je dit gratis loatn herdrukken. Gene veroordeelienge!" }
+    };
+
     // Load saved position
     const savedPage = localStorage.getItem('voucherBookPage');
     if (savedPage !== null) {
       currentPage = parseInt(savedPage);
+    }
+
+    // Load sent vouchers from localStorage
+    function loadSentVouchers() {
+      const sent = localStorage.getItem('sentVouchers');
+      return sent ? JSON.parse(sent) : [];
+    }
+
+    function saveSentVouchers(sentList) {
+      localStorage.setItem('sentVouchers', JSON.stringify(sentList));
+    }
+
+    // Mark vouchers as sent on load
+    function markSentVouchers() {
+      const sentList = loadSentVouchers();
+      sentList.forEach(voucherId => {
+        const pageDiv = document.querySelector(`[data-page="${voucherId}"]`);
+        if (pageDiv) {
+          const voucher = pageDiv.querySelector('.voucher');
+          const button = pageDiv.querySelector('.send-btn');
+          if (voucher) voucher.classList.add('redeemed');
+          if (button) {
+            button.textContent = '✓ Verstuurd';
+            button.classList.add('sent');
+            button.disabled = true;
+          }
+        }
+      });
+    }
+
+    // Send voucher via SMS
+    function sendVoucher(voucherId, name, phone) {
+      const data = voucherData[voucherId];
+      if (!data) return;
+
+      const message = `🎁 VOUCHER CADEAU vo Moeke!\n\n${data.title}\n\n${data.desc}\n\n— Van ewen familie, me liefde`;
+
+      // Open SMS with the message
+      const smsUrl = `sms:${phone}?body=${encodeURIComponent(message)}`;
+      window.location.href = smsUrl;
+
+      // Mark as sent
+      const sentList = loadSentVouchers();
+      if (!sentList.includes(voucherId)) {
+        sentList.push(voucherId);
+        saveSentVouchers(sentList);
+      }
+
+      // Update UI
+      const pageDiv = document.querySelector(`[data-page="${voucherId}"]`);
+      if (pageDiv) {
+        const voucher = pageDiv.querySelector('.voucher');
+        const button = pageDiv.querySelector('.send-btn');
+        if (voucher) voucher.classList.add('redeemed');
+        if (button) {
+          button.textContent = '✓ Verstuurd';
+          button.classList.add('sent');
+          button.disabled = true;
+        }
+      }
     }
 
     function showPage(n) {
@@ -898,6 +1056,7 @@
 
     // Initialize
     showPage(currentPage);
+    markSentVouchers();
   </script>
 </body>
 </html>
